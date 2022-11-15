@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block 'title' %}Edit{% endblock %}
+
+{% block 'content' %}
+    <div class="card col-md-5 offset-md-4 mt-5">
+        <div class="card-body">
+            <a href="{% url 'index' %}" class="btn btn-dark text-light"> Back</a>
+            <h2 class="Display-1 text-center">{{course.name}}</h2>
+            <form action="{% url 'new_data' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="id_course">ID:</label>
+                    <input type="text" id="id_course" class="form-control" value="{{course.id_course}}" disabled/>
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="course">Course:</label>
+                    <input type="text" id="course" class="form-control" value="{{course.name}}"/>
+                </div>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="credit">Credit:</label>
+                    <input type="number" id="credit" class="form-control" value="{{course.credit}}" min="1"/>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-outline-dark btn-block mb-4">Update</button>
+              </form> 
+        </div>
+    </div>
+{% endblock %}

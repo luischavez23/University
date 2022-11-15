@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block 'title' %}Sign up{% endblock %}
+
+{% block 'content' %}
+<div class="col-md-5 offset-md-3">
+    <h2 class="Display-1 text-center p-3">Sign Up</h2>
+    <p class="text-danger text-center">{{error}}</p>
+    <form method="POST">
+        {% csrf_token %}
+        {%for field in form %}
+            <div class="form-group p-2">
+                {{field.label}}
+                {{field}}
+            </div>
+        {% endfor %}
+        <button class="btn btn-dark" type="submit">Sign up</button>
+    </form>
+</div>
+{% endblock  %}

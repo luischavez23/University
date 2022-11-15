@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block 'title' %}Home{% endblock %}
+
+{% block 'content' %}
+<div class="row p-5">
+    <div class="col-sm-12 col-md-4">
+      <div class="card">
+        <h2 class='Display-3 text-center pt-3'>Register</h2>
+        <form action="{% url 'register' %}" method="POST" class="card-body">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+            {% endfor %}
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-outline-dark mt-2">Submit</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 pt-3 pt-md-0">
+        <h1 class="Display-1 text-center">Course List</h1>
+        <div class="table-responsive">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Code</th>
+                  <th scope="col">Course</th>
+                  <th scope="col">Credit</th>
+                  <th scope="col">Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for row in course %}
+                  <tr>
+                    <th scope="row">{{row.id_course}}</th>
+                    <td>{{row.name}}</td>
+                    <td>{{row.credit}}</td>
+                    <td>
+                        <div class="btn-options">
+                            <a href="{% url 'edit' id_course=row.id_course %}" class="btn btn-outline-warning"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{% url 'remove' id_course=row.id_course %}" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  <thead class="table-secondary">
+                    <tr>
+                      <th scope="col">Total: </th>
+                      <th scope="col">{{course | length}}</th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
